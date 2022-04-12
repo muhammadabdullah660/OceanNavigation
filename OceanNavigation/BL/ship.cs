@@ -11,7 +11,7 @@ namespace OceanNavigation.BL
         public string shipName;
         public angle longitude;
         public angle latitude;
-        public static List<ship> shipList = new List<ship>();
+        static List<ship> shipList = new List<ship>();
 
         public ship (string shipName , angle longitude , angle latitude)
         {
@@ -38,6 +38,33 @@ namespace OceanNavigation.BL
         public void printName ()
         {
             Console.WriteLine(shipName);
+        }
+        public static void addShipIntoList (ship newShip)
+        {
+            shipList.Add(newShip);
+        }
+        public static ship findShip (string serialNum)
+        {
+            foreach (ship item in shipList)
+            {
+                if (serialNum == item.shipName)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+        public static string findShipName (string latitude , string longitude)
+        {
+            foreach (ship item in shipList)
+            {
+                if (item.isyes(latitude , longitude))
+                {
+                    return item.shipName;
+
+                }
+            }
+            return null;
         }
     }
 }
