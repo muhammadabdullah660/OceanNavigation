@@ -17,16 +17,7 @@ namespace OceanNavigation.BL
             this.minutes = minutes;
             this.direction = direction;
         }
-        public void displayPosition ()
-        {
-            Console.WriteLine($"{degrees}\u00b0{minutes}' {direction}");
 
-        }
-        public string displayStringFormat ()
-        {
-            string x = $"{degrees}'{minutes}' {direction}";
-            return x;
-        }
         public void changePosition (int degrees , float minutes , char direction)
         {
             this.degrees = degrees;

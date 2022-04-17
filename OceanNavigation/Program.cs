@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OceanNavigation.BL;
+using OceanNavigation.DL;
+using OceanNavigation.UI;
 
 namespace OceanNavigation
 {
@@ -12,7 +14,7 @@ namespace OceanNavigation
         static void Main ()
         {
             int op = 0;
-            while (op < 8)
+            while (op < 5)
             {
                 clearScreen();
                 op = mainMenu();
@@ -20,24 +22,24 @@ namespace OceanNavigation
                 {
                     clearScreen();
 
-                    ship.addShipIntoList(addShip());
+                    shipDL.addShipIntoList(shipUI.addShip());
 
                 }
                 else if (op == 2)
                 {
                     clearScreen();
-                    viewShipPosition();
+                    shipUI.viewShipPosition();
                 }
                 else if (op == 3)
                 {
                     clearScreen();
-                    viewShipSerialNum();
+                    shipUI.viewShipSerialNum();
 
                 }
                 else if (op == 4)
                 {
                     clearScreen();
-                    changePosition();
+                    shipUI.changePosition();
 
                 }
 
@@ -63,94 +65,6 @@ namespace OceanNavigation
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
             Console.Clear();
-        }
-        static ship addShip ()
-        {
-            Console.WriteLine("Enter Ship Serial Number");
-            string name = Console.ReadLine();
-            Console.WriteLine("Enter Ship Latitude:");
-            Console.WriteLine("Enter Latitude's Degree:");
-            int degree = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter Latitude's Minutes:");
-            float minutes = float.Parse(Console.ReadLine());
-            Console.WriteLine("Enter Latitude's Direction:");
-            char direction = char.Parse(Console.ReadLine());
-            angle latitude = new angle(degree , minutes , direction);
-            Console.WriteLine("Enter Ship Longitude:");
-            Console.WriteLine("Enter Longitude's Degree:");
-            degree = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter Longitude's Minutes:");
-            minutes = float.Parse(Console.ReadLine());
-            Console.WriteLine("Enter Longitude's Direction:");
-            direction = char.Parse(Console.ReadLine());
-            angle longitude = new angle(degree , minutes , direction);
-            ship newShip = new ship(name , longitude , latitude);
-            return newShip;
-
-        }
-        static void viewShipPosition ()
-        {
-            Console.WriteLine("Enter Ship Serial Number To Find Its Position:");
-            string serialNum = Console.ReadLine();
-            ship req = ship.findShip(serialNum);
-            if (req != null)
-            {
-                req.printLocation();
-
-            }
-            else
-            {
-                Console.WriteLine("Not Exist");
-            }
-        }
-        static void changePosition ()
-        {
-            Console.WriteLine("Enter Ship Serial Number To Change Its Position:");
-            string serialNum = Console.ReadLine();
-            ship req = ship.findShip(serialNum);
-            if (req != null)
-            {
-
-
-                Console.WriteLine("Enter Latitude's Degree:");
-                int degree = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Latitude's Minutes:");
-                float minutes = float.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Latitude's Direction:");
-                char direction = char.Parse(Console.ReadLine());
-                req.latitude.changePosition(degree , minutes , direction);
-                Console.WriteLine("Enter Ship Longitude:");
-                Console.WriteLine("Enter Longitude's Degree:");
-                degree = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Longitude's Minutes:");
-                minutes = float.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Longitude's Direction:");
-                direction = char.Parse(Console.ReadLine());
-                req.longitude.changePosition(degree , minutes , direction);
-            }
-            else
-            {
-                Console.WriteLine("Not Exist");
-            }
-
-        }
-
-        static void viewShipSerialNum ()
-        {
-            Console.WriteLine("Enter Ship Latitude:");
-            string latitude = Console.ReadLine();
-            Console.WriteLine("Enter Ship Longitude:");
-            string longitude = Console.ReadLine();
-            string shipName = ship.findShipName(latitude , longitude);
-            if (shipName != null)
-            {
-                Console.WriteLine(shipName);
-
-            }
-            else
-            {
-                Console.WriteLine("Not Exist");
-            }
         }
     }
 }
