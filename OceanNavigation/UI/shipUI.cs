@@ -11,19 +11,45 @@ namespace OceanNavigation.UI
     {
         public static ship addShip ()
         {
+            bool flag = true;
             Console.WriteLine("Enter Ship Serial Number");
             string name = Console.ReadLine();
             Console.WriteLine("Enter Ship Latitude:");
-            Console.WriteLine("Enter Latitude's Degree:");
-            int degree = int.Parse(Console.ReadLine());
+            int degree = 0;
+            while (flag)
+            {
+                Console.WriteLine("Enter Latitude's Degree:");
+                degree = int.Parse(Console.ReadLine());
+                if (degree < 0 || degree > 90)
+                {
+                    Console.WriteLine("Enter Again");
+                }
+                else
+                {
+                    flag = false;
+                }
+            }
+            flag = true;
             Console.WriteLine("Enter Latitude's Minutes:");
             float minutes = float.Parse(Console.ReadLine());
             Console.WriteLine("Enter Latitude's Direction:");
             char direction = char.Parse(Console.ReadLine());
             angle latitude = new angle(degree , minutes , direction);
             Console.WriteLine("Enter Ship Longitude:");
-            Console.WriteLine("Enter Longitude's Degree:");
-            degree = int.Parse(Console.ReadLine());
+            while (flag)
+            {
+                Console.WriteLine("Enter Longitude's Degree:");
+                degree = int.Parse(Console.ReadLine());
+                if (degree < 0 || degree > 180)
+                {
+                    Console.WriteLine("Enter Again");
+                }
+                else
+                {
+                    flag = false;
+                }
+            }
+
             Console.WriteLine("Enter Longitude's Minutes:");
             minutes = float.Parse(Console.ReadLine());
             Console.WriteLine("Enter Longitude's Direction:");
@@ -46,7 +72,7 @@ namespace OceanNavigation.UI
             ship req = shipDL.findShip(serialNum);
             if (req != null)
             {
-                shipUI.printLocation(req.longitude , req.latitude);
+                shipUI.printLocation(req.getShipLon() , req.getShipLat());
 
             }
             else
@@ -69,7 +95,8 @@ namespace OceanNavigation.UI
                 float minutes = float.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Latitude's Direction:");
                 char direction = char.Parse(Console.ReadLine());
-                req.latitude.changePosition(degree , minutes , direction);
+                angle lat = req.getShipLat();
+                lat.changePosition(degree , minutes , direction);
                 Console.WriteLine("Enter Ship Longitude:");
                 Console.WriteLine("Enter Longitude's Degree:");
                 degree = int.Parse(Console.ReadLine());
@@ -77,7 +104,9 @@ namespace OceanNavigation.UI
                 minutes = float.Parse(Console.ReadLine());
                 Console.WriteLine("Enter Longitude's Direction:");
                 direction = char.Parse(Console.ReadLine());
-                req.longitude.changePosition(degree , minutes , direction);
+                angle lon = req.getShipLon();
+                lon.changePosition(degree , minutes , direction);
+
             }
             else
             {

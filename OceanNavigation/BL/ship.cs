@@ -8,9 +8,9 @@ namespace OceanNavigation.BL
 {
     class ship
     {
-        public string shipName;
-        public angle longitude;
-        public angle latitude;
+        private string shipName;
+        private angle longitude;
+        private angle latitude;
 
         public ship (string shipName , angle longitude , angle latitude)
         {
@@ -29,9 +29,30 @@ namespace OceanNavigation.BL
             }
             return false;
         }
-        /*public void printName ()
+        public string getShipName ()
         {
-            Console.WriteLine(shipName);
-        }*/
+            return shipName;
+        }
+        public angle getShipLat ()
+        {
+            return latitude;
+        }
+        public angle getShipLon ()
+        {
+            return longitude;
+        }
+        public void setShipName (string shipName)
+        {
+            this.shipName = shipName;
+        }
+        public void setShipLat (angle latitude)
+        {
+            this.latitude = latitude;
+        }
+        public void setShipLon (angle longitude)
+        {
+            this.longitude = longitude;
+        }
+       
     }
 }
